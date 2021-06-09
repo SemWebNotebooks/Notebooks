@@ -1,0 +1,60 @@
+\documentclass{article}
+
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{soul}
+\usepackage{xcolor}
+
+\definecolor{cmd}{RGB}{210,210,210}
+\newcommand{\consolecommand}[1]{
+\begingroup%
+  \sethlcolor{cmd}%
+  \hl{\texttt{#1}}%
+\endgroup}
+\newcommand{\clickthis}[1]{\textbf{''#1''}}
+\newcommand{\pathfmt}[1]{\textbf{#1}}
+
+\title{Jupyter Notebooks, Automatic Grading and Moodle Submission}
+\author{Lars Pieschel}
+
+\begin{document}
+	\maketitle
+	\section{Installation}
+		You need a local installation of python, Anaconda with a new virtual environment is recommended. Use \consolecommand{pip install} or \consolecommand{conda install} to install the packages \consolecommand{notebook} and \consolecommand{nbgrader} (note: for \consolecommand{conda install} you need to change channel to conda-forge). If you only want to grade submissions, then you don't need the \consolecommand{notebook} package.
+	\section{Creating Assignments with Formgrader}
+		Choose a folder and execute the command \consolecommand{jupyter notebook}. This will start a notebook server and open a browser with the link to the server. After this click on the \clickthis{Formgrader} tab to open the formgrader interface. Click on \clickthis{Add new assignment} and enter an assignment name. Then click the name in the list of assignments to open up the assignment folder in jupyter notebook. Here create a new notebook and open it. To make metadata editing easier, click on \clickthis{View$\rightarrow$Cell Toolbar$\rightarrow$Create Assignment}. This will add a small dropdown to every cell with which you can choose the cell type for nbgrader. There are five cell types. \clickthis{Manually graded answer} and \clickthis{Manually graded task} are not interesting for us. \clickthis{Read-only} can't be edited by students. \clickthis{Autograder answer} are cells in which a task is given and \clickthis{Autograder tests} are cells for unittests for the task cells. Write code snippets in a autograder answer cell and surround the part that the student should write with two comments ''\#\#\# BEGIN SOLUTION'' and ''\#\#\# END SOLUTION''. For autograder tests use assertions to test the solution. Tests are by default visible for students. If you want to hide tests from the students then you have to surround the tests with two comments ''\#\#\# BEGIN HIDDEN TESTS'' and ''\#\#\# END HIDDEN TESTS''. Don't forget to set the amount of points a test cell gives when it doesn't fail.
+
+When you are finished editing the notebook, close it and click generate in the formgrader. This will generate the student version of the assignment in the folder \pathfmt{/release/}.
+	\section{Distributing Notebooks via Moodle}
+		Create a new assignment, enter a name and upload the student version of the assignment notebook. Under \clickthis{Feedback types} check the boxes \clickthis{Offline grading worksheet} and \clickthis{Feedback files}. Also change the maximum amount of points to that of the notebook.
+	\section{Grading Notebooks}
+		\textbf{Note: The given scripts only work when your moodle language is set to english. You can change the language in the top right.}
+
+		Download the Scripts from \href{https://github.com/johnhw/moodle_nbgrader}{this repository}. In moodle select the assignment, view all submissions, reveal identities and then download all submissions and copy the zip folder to \pathfmt{/imports/\textlangle{}assignment\textrangle{}.zip} in your jupyter folder. Download the grading worksheet and do the same (\pathfmt{/imports/\textlangle{}assignment\textrangle{}.csv}). Then execute \consolecommand{python collect\_files.py \textlangle{}assignment\textrangle{} \textlangle{}workbook name\textrangle{}}. Then run \consolecommand{nbgrader autograde \textlangle{}assignment\textrangle{}} and \consolecommand{nbgrader generate\_feedback \textlangle{}assignment\textrangle{}}. Finally create a folder \pathfmt{/exports/} if it doesn't exist already and run \consolecommand{python update\_gradesheet.py \textlangle{}assignment\textrangle{}}. There should now be two files in the \pathfmt{/exports/} folder, a csv and a zip file.
+	\section{Uploading Grades and Feedback}
+		\textbf{Note: Uploading the gradesheet only works when your moodle language is set to english. You can change the language in the top right.}
+
+		After the grading step, on the moodle submissions page, choose \clickthis{Upload grading worksheet}, choose the csv file from the exports folder and put a check in the box \clickthis{Allow updating records that have been modified more recently in Moodle than in the spreadsheet.} and submit. Then choose \clickthis{Upload multiple feedback files in a zip} and upload the zip file.
+	\clearpage
+	\section{Summary}
+	\textbf{Note: Set your moodle's language to english or some steps will not work. You can change the language in the top right.}
+	\begin{enumerate}
+		\item Create Notebook
+		\item Upload to moodle, check offline grading and feedback, set max points
+		\item Download submissions, rename, put into imports
+		\item Download grading sheet, rename, put into imports
+		\item python collect\_files.py \textlangle{}assignment\textrangle{} \textlangle{}workbook name\textrangle{}
+		\item nbgrader autograde \textlangle{}assignment\textrangle{}
+		\item nbgrader generate\_feedback \textlangle{}assignment\textrangle{}
+		\item python update\_gradesheet.py \textlangle{}assignment\textrangle{}
+		\item Upload gradesheet csv to moodle, check overwrite box
+		\item Upload feedback zip to moodle
+	\end{enumerate}
+
+	\section{Troubleshooting}
+
+	\consolecommand{[AutogradeApp | ERROR] While processing assignment XYZ, the kernel became unresponsive and we could not interrupt it. This probably means that the students' code has an infinite loop that consumes a lot of memory or something similar. nbgrader doesn't know how to deal with this problem, so you will have to manually edit the students' code (for example, to just throw an error rather than enter an infinite loop).}
+
+When you see this error without there being an infinite loop in the notebook, it may be caused by a problem with nbconvert. Try downgrading to nbconvert version 5.6.1.
+	
+\end{document}

@@ -1,0 +1,1 @@
+This folder contains only the **student versions** of the SemWebNotebooks, which do **not** include the unit tests used for automatic grading. Please contact `semweb [at] dbis (dot) rwth-aachen {dot} de` if you want to get a copy  the full notebooks.
