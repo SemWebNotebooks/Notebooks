@@ -14,3 +14,10 @@ File or path | Description
 [moodle_nbgrader](Scripts/moodle_nbgrader) | This is a very slightly changed fork of [moodle_nbgrader by johnhw](https://github.com/johnhw/moodle_nbgrader). These are scripts used to change the moodle submission directory structure to the nbgrader directory structure.
 [snippets](Scripts/snippets) | For code snippets used in notebooks or elsewhere.
 [Evaluation](Evaluation.ipynb) | A quantitative summary of the [raw evaluation results](Eval_semweb_tool.xlsx) of our user study.
+
+## Submodules & Libs
+
+RDFLib: https://rdflib.readthedocs.io/en/stable/
+RDFLib-jsonld: https://github.com/RDFLib/rdflib-jsonld
+OWL-RL: https://owl-rl.readthedocs.io/en/latest/
+Graphviz: https://graphviz.org
