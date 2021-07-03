@@ -18,6 +18,9 @@ File or path | Description
 ## Submodules & Libs
 
 RDFLib: https://rdflib.readthedocs.io/en/stable/
+
 RDFLib-jsonld: https://github.com/RDFLib/rdflib-jsonld
+
 OWL-RL: https://owl-rl.readthedocs.io/en/latest/
+
 Graphviz: https://graphviz.org
