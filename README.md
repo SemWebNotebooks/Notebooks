@@ -4,6 +4,14 @@ This repository contains the digital learning materials, scripts and documents e
 
 All notebooks are developed based on [Jupyter-RDFify](https://github.com/SemWebNotebooks/Jupyter-RDFify), our IPython plugin bringing support for Semantic Web Technologies, such as Turtle, SPARQL, ShEx, etc., directly into the Jupyter Notebook ecosystem.
 
+## Try It Yourself!
+
+Start a Jupyter Notebook server and follow the instructions given in the [example notebook](Notebooks/Jupyter-RDFify-Example.ipynb) to install the dependencies and get a feature overview.
+
+Don't have a Jupyter Notebook server installed? You can open the example notebook right now in your browser using binder by clicking on the badge below.
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/SemWebNotebooks/Notebooks/HEAD?filepath=Notebooks%2FJupyter-RDFify-Example.ipynb)
+
 ## Contents
 
 File or path | Description

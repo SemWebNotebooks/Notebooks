@@ -1,0 +1,11 @@
+# To install use the following command: conda env create --file environment.yml
+# This will install Jupyter Notebook, Graphviz and Jupyter-RDFify in the environment jupyter-rdfify
+# Then to activate the environment: conda activate jupyter-rdfify
+# Then to start the notebook server: jupyter notebook
+name: jupyter-rdfify
+dependencies:
+  - conda-forge::notebook
+  - conda-forge::graphviz
+  - pip
+  - pip:
+    - jupyter-rdfify
